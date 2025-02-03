@@ -32,10 +32,11 @@ public class IccidController {
     @PostMapping("iccid")
     public ResponseEntity<String> postToOtherService(@RequestBody Iccid iccid) {
         System.out.println("hello sumit");
-        String url = "http://localhost:8080" +
+        String url = "http://localhost:8444" +
                 "/actuate";
 
         String iccid_new = iccid.getIccid();
+        System.out.println(iccid_new+" checking this if the data is running");
 
         Map<String, String> iccidData = new HashMap<>();
         iccidData.put("iccid", iccid_new);
@@ -43,6 +44,7 @@ public class IccidController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
+        System.out.println("before iccidCOntroller return statement");
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(iccidData, headers);
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
