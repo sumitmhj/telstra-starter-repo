@@ -21,22 +21,21 @@ public class IccidController {
     @Autowired
     IccidRepository iccidRepository;
 
+
     @Autowired
     RestTemplate restTemplate;
 
-//    @PostMapping
-//    public Iccid createIccid(@RequestBody Iccid iccid){
-//        return iccidRepository.save(iccid);
-//    }
 
     @PostMapping("iccid")
     public ResponseEntity<String> postToOtherService(@RequestBody Iccid iccid) {
-        System.out.println("hello sumit");
-        String url = "http://localhost:8444" +
-                "/actuate";
+        final String url = "http://localhost:8444/actuate";
 
-        String iccid_new = iccid.getIccid();
-        System.out.println(iccid_new+" checking this if the data is running");
+        final String iccid_new = iccid.getIccid();
+
+        if (iccid_new == null || iccid_new.isEmpty()){
+            return ResponseEntity.badRequest().body("ICCID cannot be null or empty");
+        }
+
 
         Map<String, String> iccidData = new HashMap<>();
         iccidData.put("iccid", iccid_new);
@@ -44,29 +43,14 @@ public class IccidController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        System.out.println("before iccidCOntroller return statement");
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(iccidData, headers);
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
             return response;
         } catch (ResourceAccessException e) {
-            System.err.println("Connection refused: " + e.getMessage());
             return new ResponseEntity<>("Could not connect to the external service", HttpStatus.SERVICE_UNAVAILABLE);
         } catch (Exception e) {
-            System.err.println("An error occurred: " + e.getMessage());
             return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
-
-//        ResponseEntity<String> response = new ResponseEntity<>(HttpStatus.OK);
         }
     }
-
-//    @PostMapping("actuate")
-//    public ResponseEntity<String> handleIccid(@RequestBody Map<String, String> iccidData){
-//        String iccid = iccidData.get("iccid");
-//
-//        return ResponseEntity.ok("Received : "+ iccid);
-//
-//    }
-
-
 }
