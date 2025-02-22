@@ -26,7 +26,7 @@ public class IccidController {
     RestTemplate restTemplate;
 
 
-    @PostMapping("iccid")
+    @PostMapping("activate")
     public ResponseEntity<String> postToOtherService(@RequestBody Iccid iccid) {
         final String url = "http://localhost:8444/actuate";
 
