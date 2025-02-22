@@ -1,10 +1,10 @@
 package au.com.telstra.simcardactivator.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
+
+//@Component
 @Entity
 public class Iccid {
 
@@ -12,9 +12,20 @@ public class Iccid {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(unique = true)
     private String iccid;
 
     private String customerEmail;
+
+    private boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public long getId() {
         return id;
