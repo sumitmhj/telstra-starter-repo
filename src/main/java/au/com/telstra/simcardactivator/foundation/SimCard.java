@@ -1,5 +1,6 @@
 package au.com.telstra.simcardactivator.foundation;
 
+import au.com.telstra.simcardactivator.record.SimCardRecord;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;
@@ -26,6 +27,9 @@ public class SimCard {
         this.iccid = iccid;
         this.customerEmail = customerEmail;
         this.active = active;
+    }
+
+    public SimCard(SimCardRecord simCardRecord) {
     }
 
     public long getId() {
