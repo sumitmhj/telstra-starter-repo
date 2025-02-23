@@ -27,7 +27,7 @@ public class IccidController {
     RestTemplate restTemplate;
 
 
-    @PostMapping("iccid")
+    @PostMapping("activate")
     public ResponseEntity<String> postToOtherService(@RequestBody Iccid iccid) {
         final String url = "http://localhost:8444/actuate";
 
@@ -74,7 +74,7 @@ public class IccidController {
     }
 
     // new code for task 2
-    @GetMapping("/{id}")
+    @GetMapping("query/{id}")
     public ResponseEntity<Iccid> getIccid(@PathVariable Long id){
         Optional<Iccid> iccid = iccidRepository.findById(id);
         return iccid.map(ResponseEntity::ok)
@@ -82,7 +82,7 @@ public class IccidController {
 //        return iccidRepository.findById(id);
     }
 
-    @GetMapping("iccid")
+    @GetMapping("query")
     public List<Iccid> getAllIccid(){
         return iccidRepository.findAll();
     }
