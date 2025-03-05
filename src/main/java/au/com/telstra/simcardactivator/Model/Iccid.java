@@ -50,4 +50,20 @@ public class Iccid {
     public void setCustomerEmail(String customerEmail) {
         this.customerEmail = customerEmail;
     }
+
+    public Iccid() {
+    }
+
+    //    public Iccid(long id, String iccid, String customerEmail, boolean active) {
+//        this.id = id;
+//        this.iccid = iccid;
+//        this.customerEmail = customerEmail;
+//        this.active = active;
+//    }
+
+    public Iccid(String iccid, String customerEmail, boolean active) {
+        this.iccid = iccid;
+        this.customerEmail = customerEmail;
+        this.active = active;
+    }
 }

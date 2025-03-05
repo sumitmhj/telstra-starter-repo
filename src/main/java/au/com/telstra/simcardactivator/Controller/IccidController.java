@@ -76,8 +76,10 @@ public class IccidController {
     @GetMapping("query/{id}")
     public ResponseEntity<Iccid> getIccid(@PathVariable Long id){
         Optional<Iccid> iccid = iccidRepository.findById(id);
+        System.out.println(iccid);
         return iccid.map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
 //        return iccidRepository.findById(id);
     }
 
